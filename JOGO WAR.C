@@ -17,9 +17,9 @@ struct Territorio {
 };
 
 // --- Funçao para limpar o buffer de entrada ---
-void limparBufferEntarda() {
+void limparBufferEntrada() {
     int c;
-    while ((c = getchar ())! = '\n' && c ! = EQF);
+    while ((c = getchar ()) != '\n' && c != EOF);
 }
 
 // --- Função principal (main) ---
@@ -33,7 +33,7 @@ int main (){
 
         // Exibe o menu de opções.
         printf("=============================\n");
-        printf("     Exército - PArte 1\n");
+        printf("     Exército - Parte 1\n");
         printf("=============================\n");
         printf("1 - Cadastro exército novo\n");
         printf("2 - Listar todos os exércitos\n");
@@ -50,25 +50,25 @@ int main (){
             case 1: // cadastro do exército
             printf("--- Cadastro do exército novo --- \n\n");
 
-            if (totalTerritorio , max_territorio){
+            if (totalTerritorio < max_territorio){
                 printf("Digite o nome do exército: ");
                 fgets(exercito[totalTerritorio].nome, tam_string, stdin);
 
-                printf("digite a cor: ");
+                printf("Digite a cor: ");
                 fgets(exercito[totalTerritorio].cor, tam_string, stdin);
 
-                printf("digite a Tropa: ");
-                fgets(exercito[totalTerritorio].tropa, tam_string, stdin);
+                printf("Digite a Tropa: ");
+                scanf("%d", &exercito[totalTerritorio].tropa);
+                limparBufferEntrada();
                 
                 exercito[totalTerritorio].nome[strcspn(exercito[totalTerritorio].nome, "\n")] = '\0';
                 exercito[totalTerritorio].cor[strcspn(exercito[totalTerritorio].cor, "\n")] = '\0'; 
-                exercito[totalTerritorio].tropa[strcspn(exercito[totalTerritorio].tropa, "\n")] = '\0'; 
-                
+                                
                 totalTerritorio++;
 
-                Printf("\nTerritorio cadastrado com sucesso!\n");
+                printf("\nTerritorio cadastrado com sucesso!\n");
             } else {
-                printf("exercito cheio! não é possivel cadastrar mais territorio.\n");
+                printf("exército cheio! não é possivel cadastrar mais territorio.\n");
             }
 
             printf("\nPresione Enter para continuar...");
@@ -78,15 +78,15 @@ int main (){
             case 2: // listagem de territorio
             printf("--- Lista de territorio cadastrados ---\n\n");
 
-            if (totalTerritotio == 0) {
+            if (totalTerritorio == 0) {
                 printf("Nenhum territorio cadastrado ainda.\n");
-            } elese {
-                for (int i = 0 < totalTerritorio; i++){
-                    Printf("-------------------------------\n");
-                    Printf("Territorio %d\n", 1 + 1);
+            } else {
+                for (int i = 0; i < totalTerritorio; i++) {
+                    printf("-------------------------------\n");
+                    printf("Territorio %d\n", 1 + 1);
                     printf("Exército: %s\n", exercito[i].nome);
                     printf("Cor: %s\n", exercito[i].cor);
-                    printf("Tropa: %s\n", exercito[i].tropa);
+                    printf("Tropa: %d\n", exercito[i].tropa);
                 }
                 printf("----------------------------------\n");
             }
@@ -95,8 +95,19 @@ int main (){
             printf("\nPressione enter para continuar...");
             getchar();
             break;
-            
+
+            case 0: // sair
+            printf("\nSaindo do sistema...\n");
+            break;
+
+            default: // opção inválida
+            printf("\nOpcao invalida! Tente novamente.\n");
+            printf("\nPressione Enter para continuar...");
+            getchar();
+            break;
         }
-    }
+
+    }while (opcao != 0);
+    return 0; // fim do programa
 } 
 
